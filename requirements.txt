@@ -1,0 +1,10 @@
+fuzzer
+
+- take a templated html request as a file with indicated payload injection points.
+- specify the list for each payload (maybe using **args???)
+- start by dealing with one fuzz point
+- ability to define fuzz insertion type (e.g. {0}, *0*, |0|)
+- support different attack types e.g. sniper, cluster bomb
+
+http_input_file
+- add validation of data in file
