@@ -1,35 +1,56 @@
-import socket
-
-from urllib.parse import urlparse
+import requests
 
 
 class Fuzzer:
-    def __init__(self, target, http_request_template, payload_string_list):
+    def __init__(self, target, parameter_list, payload_string_list):
         self.target = target
-        self.http_request_template = http_request_template
+        self.parameter_list = parameter_list
         self.payload_string_list = payload_string_list
         self.generate_http_requests()
 
     def generate_http_requests(self):
         for payload_string in self.payload_string_list:
-            http_request = self.http_request_template.replace("{0}", payload_string)
-            self.make_request(http_request, payload_string)
+            current_parameter_list = {}
+            for parameter in self.parameter_list:
+                if self.parameter_list[parameter] == "{0}":
+                    current_parameter_list[parameter] = payload_string
+                else:
+                    current_parameter_list[parameter] = self.parameter_list[parameter]
 
-    def make_request(self, http_request, payload_string):
-        s = socket.socket()
-        s.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
-        parsed_url = urlparse(self.target)
-        host = parsed_url.netloc
+            r = requests.Request('POST', self.target, data=current_parameter_list)
+            prepared = r.prepare()
 
-        if parsed_url.scheme == "https":
-            port = 443
-        else:
-            port = 80
+            # self.pretty_print_POST(prepared)
 
-        s.connect((host, port))
-        # print(http_request)
-        s.send(bytes(http_request, encoding="utf-8"))
-        received = s.recv(2048).decode("utf-8")
-        received_split = received.split('\r\n')
-        print('{0}: {1} # Response length: {2}'.format(payload_string, received_split[0], len(received)))
-        print(received)
+            s = requests.Session()
+            s.send(prepared)
+            # print(s.)
+
+            r = requests.post(self.target, data=current_parameter_list, allow_redirects=False)
+            # print(self.target)
+            # print(r.prepare())
+            # print(r.headers)
+            print('{0}: {1} Response length: {2}'.format(payload_string, r.status_code, len(r.headers)))
+            print(r.headers)
+            # print(r.url)
+            # print(r.history)
+            # print(r.text)
+            # http_request = self.http_request_template.replace("{0}", payload_string)
+            # self.make_request(http_request, payload_string)
+
+    def pretty_print_POST(self, req):
+        """
+        At this point it is completely built and ready
+        to be fired; it is "prepared".
+
+        However pay attention at the formatting used in
+        this function because it is programmed to be pretty
+        printed and may differ from the actual request.
+        """
+        # https://stackoverflow.com/questions/20658572/python-requests-print-entire-http-request-raw#23816211
+        print('{}\n{}\n{}\n\n{}'.format(
+            '-----------START-----------',
+            req.method + ' ' + req.url,
+            '\n'.join('{}: {}'.format(k, v) for k, v in req.headers.items()),
+            req.body,
+        ))
