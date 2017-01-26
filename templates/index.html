@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+    {% for output in outputs %}
+        <p>{{ output }}</p>
+    {% endfor %}
+{% endblock %}

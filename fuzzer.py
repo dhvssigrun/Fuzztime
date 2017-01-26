@@ -1,12 +1,17 @@
 import requests
 
+import fuzz_output
 
 class Fuzzer:
     def __init__(self, target, parameter_list, payload_string_list):
         self.target = target
         self.parameter_list = parameter_list
         self.payload_string_list = payload_string_list
+        self.output = []
+
+    def fuzz(self):
         self.generate_http_requests()
+        return self.target
 
     def generate_http_requests(self):
         for payload_string in self.payload_string_list:
@@ -30,8 +35,13 @@ class Fuzzer:
             # print(self.target)
             # print(r.prepare())
             # print(r.headers)
-            print('{0}: {1} Response length: {2}'.format(payload_string, r.status_code, len(r.headers)))
-            print(r.headers)
+            current_fuzz = fuzz_output.FuzzOutput
+            fuzz_output.
+            self.output.append('{0}: {1} Response length: {2}\n{3}'.format(payload_string,
+                                                                           r.status_code,
+                                                                           len(r.headers),
+                                                                           r.headers))
+            # print(r.headers)
             # print(r.url)
             # print(r.history)
             # print(r.text)
