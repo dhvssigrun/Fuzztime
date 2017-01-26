@@ -14,9 +14,9 @@ class Fuzztime:
         # parsed_request = http_request.HttpRequest(http_template.content)
         # print (parsed_request.command)
         fuzzer = Fuzzer(target, parameter_list.parameters, payload_list.payload_list)
-        print("*****************")
+        # print("*****************")
         fuzzer.fuzz()
-        print(fuzzer.output)
+        # print(fuzzer.output)
         return fuzzer.output
 
 if __name__ == '__main__':

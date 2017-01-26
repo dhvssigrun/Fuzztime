@@ -35,18 +35,21 @@ class Fuzzer:
             # print(self.target)
             # print(r.prepare())
             # print(r.headers)
-            current_fuzz = fuzz_output.FuzzOutput
-            fuzz_output.
-            self.output.append('{0}: {1} Response length: {2}\n{3}'.format(payload_string,
-                                                                           r.status_code,
-                                                                           len(r.headers),
-                                                                           r.headers))
+            # current_fuzz = fuzz_output.FuzzOutput(payload_string, r.status_code, r.headers)
+            # print(type(r.headers))
+            self.output.append(fuzz_output.FuzzOutput(payload_string, r.status_code, r.headers,
+                                                      r.text))
+            # self.output.append('{0}: {1} Response length: {2}\n{3}'.format(payload_string,
+            #                                                                r.status_code,
+            #                                                                len(r.headers),
+            #                                                                r.headers))
             # print(r.headers)
             # print(r.url)
             # print(r.history)
             # print(r.text)
             # http_request = self.http_request_template.replace("{0}", payload_string)
             # self.make_request(http_request, payload_string)
+            # return self.output
 
     def pretty_print_POST(self, req):
         """
