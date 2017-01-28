@@ -6,7 +6,6 @@
         <th>Payload</th>
         <th>Return code</th>
         <th>Headers length</th>
-        <!--<th>Headers</th>-->
         <th>Body length</th>
     </tr>
     {% for output in outputs %}
@@ -14,7 +13,6 @@
             <td>{{ output.payload_item }}</td>
             <td>{{ output.return_code }}</td>
             <td>{{ output.headers_length }}</td>
-            <!--<td>{{ output.headers }}</td>-->
             <td>{{ output.body_length }}</td>
         </tr>
     {% endfor %}

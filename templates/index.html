@@ -2,16 +2,6 @@
 {% import "bootstrap/wtf.html" as wtf %}
 
 {% block page_content %}
-<!--<form action="">-->
-    <!--<dl>-->
-        <!--<dt>HTTP params</dt>-->
-        <!--<dd>{{ form.http_params }}</dd>-->
-        <!--<dt>Payload strings</dt>-->
-        <!--<dd>{{ form.payload_strings }}</dd>-->
-    <!--</dl>-->
-    <!--<p>{{ form.submit }}</p>-->
-<!--</form>-->
-
 <div class="row">
     <form class="form form-horizontal" method="post" role="form">
         {{ form.hidden_tag() }}
@@ -20,6 +10,5 @@
         {{ wtf.form_field(form.payload_strings) }}
         {{ wtf.form_field(form.submit) }}
     </form>
-    <!--{{ wtf.quick_form(form) }}-->
 </div>
 {% endblock %}

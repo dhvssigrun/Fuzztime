@@ -13,16 +13,13 @@ class HttpParams:
             for line in file:
                 self.content += line
                 self.separate_params(line)
-            # print(self.parameters)
             self.check_insertion_point_exists()
         except IOError:
-            # todo: handle IOError when opening file
             print("HTTP file not found.")
             sys.exit(1)
 
     def load_from_string_list(self, string_list_in):
         """Takes a string and splits it"""
-        # print(string_list_in)
         string_split = string_list_in.split('\r\n')
         for line in string_split:
             self.separate_params(line)
