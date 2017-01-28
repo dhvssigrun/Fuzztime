@@ -1,6 +1,6 @@
 from fuzzer import Fuzzer
 
-import http_input_file
+import http_params
 import payload_string_list
 
 
@@ -13,7 +13,9 @@ class Fuzztime:
 
     def fuzz(self):
         # target = "http://192.168.234.161/login.php"
-        parameter_list = http_input_file.HttpInputFile("example_http_params.txt")
+        parameter_list = http_params.HttpParams()
+        # parameter_list = http_params.HttpParams("example_http_params.txt")
+        parameter_list.load_from_string_list(self.parameter_list)
         payload_list = payload_string_list.PayloadStringList("example_payload_file.txt")
         # parsed_request = http_request.HttpRequest(http_template.content)
         # print (parsed_request.command)
