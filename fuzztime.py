@@ -1,7 +1,7 @@
 from fuzzer import Fuzzer
 
 import http_params
-import payload_string_list
+import payloads
 
 
 class Fuzztime:
@@ -16,7 +16,9 @@ class Fuzztime:
         parameter_list = http_params.HttpParams()
         # parameter_list = http_params.HttpParams("example_http_params.txt")
         parameter_list.load_from_string_list(self.parameter_list)
-        payload_list = payload_string_list.PayloadStringList("example_payload_file.txt")
+        # payload_list = payloads.Payloads("example_payload_file.txt")
+        payload_list = payloads.Payloads()
+        payload_list.load_from_string_list(self.payload_list)
         # parsed_request = http_request.HttpRequest(http_template.content)
         # print (parsed_request.command)
         fuzzer = Fuzzer(self.target, parameter_list.parameters, payload_list.payload_list)

@@ -22,7 +22,7 @@ class HttpParams:
 
     def load_from_string_list(self, string_list_in):
         """Takes a string and splits it"""
-        print(string_list_in)
+        # print(string_list_in)
         string_split = string_list_in.split('\r\n')
         for line in string_split:
             self.separate_params(line)

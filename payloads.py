@@ -1,15 +1,13 @@
 import sys
 
 
-class PayloadStringList:
-    def __init__(self, filename_in):
-        self.filename = filename_in
+class Payloads:
+    def __init__(self):
         self.payload_list = []
-        self.load_file()
 
-    def load_file(self):
+    def load_from_file(self, filename_in):
         try:
-            file = open(self.filename, 'r')
+            file = open(filename_in, 'r')
             for line in file:
                 self.payload_list.append(line.strip())
             self.check_data_exists()
@@ -17,6 +15,13 @@ class PayloadStringList:
         except IOError:
             print("Payload file not found.")
             sys.exit(1)
+
+    def load_from_string_list(self, string_list_in):
+        string_split = string_list_in.split('\r\n')
+        for line in string_split:
+            if line != '':
+                self.payload_list.append(line)
+        self.check_data_exists()
 
     def check_data_exists(self):
         """Ensures that at least one line of payload data is found """
